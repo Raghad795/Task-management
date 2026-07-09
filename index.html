@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Task Manager</h1> 
+    </header>
+    <form>
+        <div class="title">
+            <label for="title">Title</label>
+            <input id="title" name="title" type="text" required>
+        </div>
+        <div class="description">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" rows="4"></textarea>
+        </div>
+        <div class="date">
+            <label for="date">Date</label>
+            <input id="date" name="date" type="date" required>
+        </div>
+            <fieldset class="priority">
+                <legend>Priority:</legend>
+                <input id="high" name="priority" value="high" type="radio">
+                <label for="high" >High</label>
+                <input id="medium" name="priority" value="medium" type="radio" checked>
+                <label for="medium">Medium</label>
+                <input id="low" name="priority" value="low" type="radio">
+                <label for="low">Low</label>
+            </fieldset>
+        <button type="submit">Add Task</button>
+    </form>
+</body>
+</html>
