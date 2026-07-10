@@ -65,3 +65,28 @@ label{
     border-radius: 5px;
     cursor: pointer;
 }
+
+.tasks-container{
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Pending-tasks, .Completed-tasks{
+    width: 45%;
+    padding: 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+}
+.Pending-task, .Completed-task{
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.Pending-tasks, .Completed-tasks h3{
+    text-align: center;
+}
