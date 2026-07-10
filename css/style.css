@@ -48,7 +48,7 @@ label{
     border-radius: 5px;
 }
 
-.priority select{
+.priority{
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
@@ -75,23 +75,23 @@ label{
     justify-content: space-between;
 }
 
-.Pending-tasks, .Completed-tasks{
+.tasks{
     width: 45%;
     padding: 20px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
 }
-.Pending-task, .Completed-task{
+.task{
     margin-bottom: 20px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.Pending-tasks, .Completed-tasks h3{
+.tasks h3{
     text-align: center;
 }
 
-.btn-complete,.btn-edit,.btn-delete{
+.btn{
     color: white;
     padding: 5px 10px;
     border: none;
