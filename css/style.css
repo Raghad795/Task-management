@@ -16,4 +16,52 @@ form{
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+}
+.title{
+    margin-bottom: 20px;
+}
+label{
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.title input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.description textarea{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.date input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.priority select{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn-addTask{
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
