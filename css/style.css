@@ -90,3 +90,21 @@ label{
 .Pending-tasks, .Completed-tasks h3{
     text-align: center;
 }
+
+.btn-complete,.btn-edit,.btn-delete{
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btn-complete{
+    background-color: #008CBA;
+}
+.btn-edit{
+    background-color: #f0ad4e;
+}
+.btn-delete{
+    background-color: #d9534f;
+}
+
