@@ -10,10 +10,10 @@
     <header>
         <h1>Task Manager</h1> 
     </header>
-    <form>
+    <form id="task-form">
         <div class="title">
             <label for="title">Title: </label>
-            <input id="title" name="title" type="text" placeholder="Enter the title" required>
+            <input id="title" name="title" type="text" value="" placeholder="Enter the title" required>
         </div>
         <div class="description">
             <label for="description">Description: </label>
@@ -23,7 +23,7 @@
             <label for="date">Date</label>
             <input id="date" name="date" type="date" required>
         </div>
-            <fieldset class="priority">
+            <fieldset class="priority" id="priority">
                 <legend>Priority:</legend>
                 <input id="high" name="priority" value="high" type="radio">
                 <label for="high" >High</label>
@@ -36,28 +36,29 @@
     </form>
 
         <div class="tasks-container">
-            <div class="tasks pending-tasks">
+            <div id="task-list" class="tasks pending-tasks">
                 <h3>Pending Tasks</h3>
-                <div class="task pending-task">
-                <h3>Task Title</h3>
+                <!-- <div class="task-card pending-task">
+                    <h3>Task Title</h3>
                     <p>Description of the task...</p>
                     <p><strong>Date:</strong> 2023-10-15</p>
                     <p><strong>Priority:</strong> Medium</p>
                     <button class="btn btn-complete">Complete</button>
                     <button class="btn btn-edit">Edit</button>
                     <button class="btn btn-delete">Delete</button>
-                </div>
+                </div> -->
             </div>
             <div class="tasks completed-tasks">
                 <h3>Completed Tasks</h3>
-                <div class="task completed-task">
-                    <h4>Task Title</h4>
+                <div class="task-card completed-task">
+                    <h3>Task Title</h3>
                     <p>Description of the completed task...</p>
                     <p><strong>Date:</strong> 2023-10-10</p>
                     <p><strong>Priority:</strong> High</p>
-                    <button class="btn btn-delete">Delete</button>
+                    <button id="btn-addTask" class="btn btn-delete">Delete</button>
                 </div>
             </div>
         </div>
+        <script src="js/index.js"></script>
 </body>
 </html>
