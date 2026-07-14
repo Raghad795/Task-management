@@ -45,13 +45,15 @@ event.preventDefault();
 
     createTaskCard(taskData);
 
+    taskForm.reset(); // Reset the form after submission
+
 
 });
 
-//create a function createTaskCard to create a task card element
+//get the task list container
+const taskList = document.getElementById("task-list"); 
+
 function createTaskCard(taskData) {
-       //get the task list container
-    const taskList = document.getElementById("task-list");
 
     //create a new task element
     const taskElement = document.createElement("div");
@@ -66,7 +68,7 @@ function createTaskCard(taskData) {
     //set the content of the task element
     titleElement.textContent = taskData.title;
     descriptionElement.textContent = taskData.description;
-    dateElement.textContent = `Due Date: ${taskData.date}`;
+    dateElement.textContent = `Date: ${taskData.date}`;
     priorityElement.textContent = `Priority: ${taskData.priority}`;
     statusElement.textContent = `Status: ${taskData.status}`;
     // Append child elements to the task card
