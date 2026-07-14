@@ -36,6 +36,7 @@ event.preventDefault();
 
     //add the task data to the tasks array
     tasks.push(taskData);
+    saveTasksToLocalStorage();
     
      console.log("Tasks Array:", tasks);
 
@@ -80,6 +81,7 @@ function createTaskCard(taskData) {
         }
         // Remove the task element from the DOM
         taskList.removeChild(taskElement);
+        saveTasksToLocalStorage();
     });
 
     // Append child elements to the task card
@@ -92,7 +94,22 @@ function createTaskCard(taskData) {
     taskList.appendChild(taskElement);
 }
 
+function saveTasksToLocalStorage() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
+// Load tasks from local storage when the page loads
+function loadTasksFromLocalStorage() {
+    const storedTasks = localStorage.getItem("tasks");
 
+    if (storedTasks) {
+        const parsedTasks = JSON.parse(storedTasks);
+        tasks.push(...parsedTasks);
+        tasks.forEach(task => createTaskCard(task));
+    }
+}
+
+// Call the function when the page loads
+loadTasksFromLocalStorage();
 
 
