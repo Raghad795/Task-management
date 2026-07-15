@@ -1,6 +1,8 @@
 //create Array to store the tasks
 const tasks = [];
 
+let editingTaskId = null; // Variable to track the task being edited
+
 //get the input fields  
 const titleInput = document.getElementById("title");
 const descriptionInput = document.getElementById("description");
@@ -14,7 +16,14 @@ event.preventDefault();
     
     const taskData = getFormData();
 
-    addTask(taskData);
+    if (editingTaskId) {
+        // If editing, update the existing task
+        taskData.id = editingTaskId; // Preserve the original ID
+        updateTask(taskData);
+        editingTaskId = null; // Reset editing state
+    }else {
+        addTask(taskData);
+    }
 
     taskForm.reset(); // Reset the form after submission
 
@@ -55,6 +64,24 @@ function addTask(taskData) {
     createTaskCard(taskData);
 }
 
+function updateTask(taskData) {
+    // Find the index of the task being edited
+    const index = tasks.findIndex(task => task.id === editingTaskId);
+    if (index !== -1) {
+        // Update the task data
+        tasks[index] = taskData;
+        // Save updated tasks to local storage
+        saveTasksToLocalStorage();
+        renderTasks(); // Re-render the task list to reflect changes
+    }
+}
+
+//render the tasks to the DOM
+function renderTasks() {
+    taskList.innerHTML = ""; // Clear the task list
+    tasks.forEach(task => createTaskCard(task));
+}
+
 function saveTasksToLocalStorage() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
@@ -66,7 +93,7 @@ function loadTasksFromLocalStorage() {
     if (storedTasks) {
         const parsedTasks = JSON.parse(storedTasks);
         tasks.push(...parsedTasks);
-        tasks.forEach(task => createTaskCard(task));
+        renderTasks();
     }
 }
 
@@ -74,7 +101,7 @@ function loadTasksFromLocalStorage() {
 const taskList = document.getElementById("task-list"); 
 
 function createTaskCard(taskData) {
-
+    
     //create a new task element
     const taskElement = document.createElement("div");
     const titleElement = document.createElement("h3");
@@ -82,8 +109,7 @@ function createTaskCard(taskData) {
     const dateElement = document.createElement("p");
     const priorityElement = document.createElement("span");
     const statusElement = document.createElement("span");
-    
-    
+
     //set the class of the task element
     taskElement.classList.add("task-card");
 
@@ -95,6 +121,7 @@ function createTaskCard(taskData) {
     statusElement.textContent = `Status: ${taskData.status}`;
 
     const deleteButton = createDeleteButton(taskElement, taskData);
+    const editButton = createEditButton(taskData);
 
     // Append child elements to the task card
     taskElement.appendChild(titleElement);
@@ -103,6 +130,7 @@ function createTaskCard(taskData) {
     taskElement.appendChild(priorityElement);
     taskElement.appendChild(statusElement);
     taskElement.appendChild(deleteButton);
+    taskElement.appendChild(editButton);
     taskList.appendChild(taskElement);
 }
 
@@ -122,6 +150,28 @@ function createDeleteButton(taskElement, taskData) {
         saveTasksToLocalStorage();
     });
     return deleteButton;
+}
+
+function createEditButton(taskData) {
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    editButton.classList.add("btn", "btn-edit");
+
+    // Add event listener to the edit button
+    editButton.addEventListener("click", function() {
+        editingTaskId = taskData.id; // Set the editing task ID
+        titleInput.value = taskData.title;
+        descriptionInput.value = taskData.description;
+        dateInput.value = taskData.date;
+        //loop through the radio buttons to find the checked one
+        for (const radio of priorityInput) {
+            if (radio.value === taskData.priority) {
+                radio.checked = true;
+            }
+        }
+    });
+
+    return editButton;
 }
 
 // Call the function when the page loads
