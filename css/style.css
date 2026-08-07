@@ -9,6 +9,23 @@ header{
     padding: 10px;
 }
 
+/* === style for search bar === */
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+}
+.search-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.search-icon {
+    margin-left: 10px;
+    font-size: 20px;
+}
+
 /* ==== Form ==== */
 form{
     margin: 20px;

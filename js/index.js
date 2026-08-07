@@ -107,8 +107,8 @@ function createTaskCard(taskData) {
     const titleElement = document.createElement("h3");
     const descriptionElement = document.createElement("p");
     const dateElement = document.createElement("p");
-    const priorityElement = document.createElement("span");
-    const statusElement = document.createElement("span");
+    const priorityElement = document.createElement("p");//span
+    const statusElement = document.createElement("p");//span
 
     //set the class of the task element
     taskElement.classList.add("task-card");
@@ -129,8 +129,8 @@ function createTaskCard(taskData) {
     taskElement.appendChild(dateElement);
     taskElement.appendChild(priorityElement);
     taskElement.appendChild(statusElement);
-    taskElement.appendChild(deleteButton);
     taskElement.appendChild(editButton);
+    taskElement.appendChild(deleteButton);
     taskList.appendChild(taskElement);
 }
 
