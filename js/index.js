@@ -8,6 +8,16 @@ const titleInput = document.getElementById("title");
 const descriptionInput = document.getElementById("description");
 const dateInput = document.getElementById("date");
 const priorityInput = document.querySelectorAll("input[name='priority']");
+const searchInput = document.getElementById("search-input");
+
+//Search input
+searchInput.addEventListener("input",function(){
+    const searchText = searchInput.value;
+    const filteredTasks = tasks.filter(task => 
+        task.title.toLowerCase().includes(searchText.toLowerCase())
+    )
+    renderTasks(filteredTasks);
+});
 
 // Prevent event default behavior of form submission
 const taskForm = document.getElementById("task-form");
@@ -72,14 +82,14 @@ function updateTask(taskData) {
         tasks[index] = taskData;
         // Save updated tasks to local storage
         saveTasksToLocalStorage();
-        renderTasks(); // Re-render the task list to reflect changes
+        renderTasks(tasks); // Re-render the task list to reflect changes
     }
 }
 
 //render the tasks to the DOM
-function renderTasks() {
+function renderTasks(tasksToRender) {
     taskList.innerHTML = ""; // Clear the task list
-    tasks.forEach(task => createTaskCard(task));
+    tasksToRender.forEach(task => createTaskCard(task));
 }
 
 function saveTasksToLocalStorage() {
@@ -93,7 +103,7 @@ function loadTasksFromLocalStorage() {
     if (storedTasks) {
         const parsedTasks = JSON.parse(storedTasks);
         tasks.push(...parsedTasks);
-        renderTasks();
+        renderTasks(tasks);
     }
 }
 
