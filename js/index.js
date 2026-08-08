@@ -9,14 +9,35 @@ const descriptionInput = document.getElementById("description");
 const dateInput = document.getElementById("date");
 const priorityInput = document.querySelectorAll("input[name='priority']");
 const searchInput = document.getElementById("search-input");
+const statusInput = document.getElementById("status-filter");
+const priorityFilterInput = document.getElementById("priority-filter");
+const completedTaskList = document.getElementById("completed-task-list");
+const pendingTaskList = document.getElementById("pending-task-list");
+
+function filterTasks(){
+    const searchText = searchInput.value;
+    const selectedStatus = statusInput.value;
+    const selectedPriority = priorityFilterInput.value;
+
+    return tasks.filter(task =>
+        task.title.toLowerCase().includes(searchText.toLowerCase())
+        && (selectedStatus === "all" || task.status === selectedStatus) 
+        && (selectedPriority === "all" || task.priority === selectedPriority)  
+    );
+}
+// priority filter
+priorityFilterInput.addEventListener("change", function(){
+    renderTasks(filterTasks());
+})
+
+//status filter
+statusInput.addEventListener("change", function(){
+    renderTasks(filterTasks());
+})
 
 //Search input
 searchInput.addEventListener("input",function(){
-    const searchText = searchInput.value;
-    const filteredTasks = tasks.filter(task => 
-        task.title.toLowerCase().includes(searchText.toLowerCase())
-    )
-    renderTasks(filteredTasks);
+    renderTasks(filterTasks());
 });
 
 // Prevent event default behavior of form submission
@@ -70,8 +91,7 @@ function addTask(taskData) {
     tasks.push(taskData);
     
     saveTasksToLocalStorage();
-    
-    createTaskCard(taskData);
+    renderTasks(tasks); // Re-render the task list to reflect changes
 }
 
 function updateTask(taskData) {
@@ -88,8 +108,15 @@ function updateTask(taskData) {
 
 //render the tasks to the DOM
 function renderTasks(tasksToRender) {
-    taskList.innerHTML = ""; // Clear the task list
-    tasksToRender.forEach(task => createTaskCard(task));
+    pendingTaskList.innerHTML = ""; // Clear the pending task list
+    completedTaskList.innerHTML = ""; // Clear the completed task list
+    tasksToRender.forEach(task => {
+        if (task.status === "pending") {
+            createTaskCard(task, pendingTaskList);
+        } else if (task.status === "completed") {
+            createTaskCard(task, completedTaskList);
+        }
+    });
 }
 
 function saveTasksToLocalStorage() {
@@ -108,9 +135,9 @@ function loadTasksFromLocalStorage() {
 }
 
 //get the task list container
-const taskList = document.getElementById("task-list"); 
+const taskList = document.getElementById("pending-task-list"); 
 
-function createTaskCard(taskData) {
+function createTaskCard(taskData, taskListContainer) {
     
     //create a new task element
     const taskElement = document.createElement("div");
@@ -119,9 +146,12 @@ function createTaskCard(taskData) {
     const dateElement = document.createElement("p");
     const priorityElement = document.createElement("p");//span
     const statusElement = document.createElement("p");//span
+    const buttonsContainer = document.createElement("div");
 
     //set the class of the task element
     taskElement.classList.add("task-card");
+
+    buttonsContainer.classList.add("buttons-container");
 
     //set the content of the task element
     titleElement.textContent = taskData.title;
@@ -132,6 +162,12 @@ function createTaskCard(taskData) {
 
     const deleteButton = createDeleteButton(taskElement, taskData);
     const editButton = createEditButton(taskData);
+    const completeButton = createCompleteButton(taskData);
+
+    // if the task is completed, hide the complete button
+    if (taskData.status === "completed") {
+        completeButton.style.display = "none";
+    };
 
     // Append child elements to the task card
     taskElement.appendChild(titleElement);
@@ -139,9 +175,11 @@ function createTaskCard(taskData) {
     taskElement.appendChild(dateElement);
     taskElement.appendChild(priorityElement);
     taskElement.appendChild(statusElement);
-    taskElement.appendChild(editButton);
-    taskElement.appendChild(deleteButton);
-    taskList.appendChild(taskElement);
+    buttonsContainer.appendChild(completeButton);
+    buttonsContainer.appendChild(editButton);
+    buttonsContainer.appendChild(deleteButton);
+    taskElement.appendChild(buttonsContainer);
+    taskListContainer.appendChild(taskElement);
 }
 
 function createDeleteButton(taskElement, taskData) {
@@ -182,6 +220,22 @@ function createEditButton(taskData) {
     });
 
     return editButton;
+}
+
+function createCompleteButton(taskData) {
+    const buttonElement = document.createElement("button");
+    buttonElement.classList.add("btn", "btn-complete");
+    buttonElement.textContent = "Complete";
+
+    buttonElement.addEventListener("click", function(){
+        taskData.status = "completed";
+        saveTasksToLocalStorage();
+        renderTasks(tasks);
+
+    });
+
+
+    return buttonElement;
 }
 
 // Call the function when the page loads

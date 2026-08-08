@@ -39,32 +39,29 @@
     <div class="search-bar">
         <input class="search-input" type="text" id="search-input" placeholder="Search tasks...">
         <span class="search-icon">🔍</span>
+        <!-- add status filter and priority filter -->
+        <select class="status-filter" id="status-filter">
+            <option value="all">All Tasks</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+        </select>
+        <select class="priority-filter" id="priority-filter">
+            <option value="all">All Priorities</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+        </select>
     </div>
         <div class="tasks-container">
             <div class="tasks pending-tasks">
                 <h3>Pending Tasks</h3>
-                <div id="task-list">
+                <div id="pending-task-list">
                     <!-- add here tasks -->
                 </div>
-                <!-- <div class="task-card pending-task">
-                    <h3>Task Title</h3>
-                    <p>Description of the task...</p>
-                    <p><strong>Date:</strong> 2023-10-15</p>
-                    <p><strong>Priority:</strong> Medium</p>
-                    <button class="btn btn-complete">Complete</button>
-                    <button class="btn btn-edit">Edit</button>
-                    <button class="btn btn-delete">Delete</button>
-                </div> -->
             </div>
             <div class="tasks completed-tasks">
                 <h3>Completed Tasks</h3>
-                <div class="task-card completed-task">
-                    <h3>Task Title</h3>
-                    <p>Description of the completed task...</p>
-                    <p><strong>Date:</strong> 2023-10-10</p>
-                    <p><strong>Priority:</strong> High</p>
-                    <button id="btn-addTask" class="btn btn-delete">Delete</button>
-                </div>
+                <div id="completed-task-list"></div>
             </div>
         </div>
         <script src="js/index.js"></script>
